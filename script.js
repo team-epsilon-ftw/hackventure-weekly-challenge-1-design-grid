@@ -73,7 +73,7 @@ function colorChange(e) {
     thisDiv.style.backgroundColor = newColor;
   }
   const copyButton = document.getElementById("getText");
-  if (copyButton.innerText == "Copy" || copyButton.innerText == "Copied") {
+  if (copyButton.innerText == "Copy" || copyButton.innerText == "Copy this") {
     copyButton.innerText = "Update";
   }
   if (lock == 0) {
@@ -139,7 +139,7 @@ copyButton.addEventListener("click", () => {
         // if (copyButton.innerText == "Copy") {
         // }
         console.log("Text copied to clipboard");
-        copyButton.innerText = "Copied";
+        copyButton.innerText = "Copy this";
       })
       .catch((error) => {
         console.error("Error in copying text: ", error);
