@@ -10,11 +10,23 @@ html {
   text-align: center;
   margin-top: 50px;
 }
-
+#jsonDisplay {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+}
 #gridContainer {
   margin-top: 20px;
 }
-
+#getText {
+  margin: 1rem 0;
+}
+textarea {
+  width: 50vw;
+  height: 50vw;
+  overflow: auto;
+}
 .cell {
   display: inline-block;
   border: 1px solid black;

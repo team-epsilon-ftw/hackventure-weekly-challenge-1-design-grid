@@ -55,21 +55,77 @@ function generateGrid() {
     gridContainer.appendChild(document.createElement("br"));
   }
 
-  function updateJsonDisplay() {
-    const cells = document.getElementsByClassName("cell");
-    const json = {};
-    Array.from(cells).forEach((cell, index) => {
-      const cellColor = cell.style.backgroundColor;
-      if (cellColor) {
-        if (!json[cellColor]) {
-          json[cellColor] = [index];
-        } else {
-          json[cellColor].push(index);
-        }
-      }
-    });
-    jsonDisplay.innerText = JSON.stringify(json, null, 2);
-  }
+  // function updateJsonDisplay() {
+  //   const cells = document.getElementsByClassName("cell");
+  //   const json = {};
+  //   Array.from(cells).forEach((cell, index) => {
+  //     const cellColor = cell.style.backgroundColor;
+  //     if (cellColor) {
+  //       if (!json[cellColor]) {
+  //         json[cellColor] = [index];
+  //       } else {
+  //         json[cellColor].push(index);
+  //       }
+  //     }
+  //   });
+  //   jsonDisplay.innerText = JSON.stringify(json, null, 2);
+  // }
+}
+function updateJsonDisplay() {
+  const cells = document.getElementsByClassName("cell");
+  const json = {};
+
+  // Iterate over each cell
+  Array.from(cells).forEach((cell, index) => {
+    const cellColor = cell.style.backgroundColor;
+
+    // Check if cell has a background color
+    if (cellColor) {
+      // If color not in dictionary, initialize list with index, otherwise add index to list
+      json[cellColor] = json[cellColor] ? [...json[cellColor], index] : [index];
+    }
+  });
+  // Convert JSON object to string with pretty formatting
+  const jsonString = JSON.stringify(json, null, 2);
+
+  console.log(jsonString);
+  // Update jsonDisplay element with the string representation of the JSON
+  // jsonDisplay.innerText = jsonString;
+
+  // Create a button to copy the JSON string to clipboard
+  // const copyButton = document.createElement("button");
+  const copyButton = document.getElementById("getText");
+  copyButton.innerText = "Copy";
+
+  const tempTextArea = document.createElement("textarea");
+  tempTextArea.value = jsonString;
+  document.getElementById("jsonDisplay").appendChild(tempTextArea);
+
+  // Add click event listener to copy button
+  copyButton.addEventListener("click", () => {
+    // Create a temporary textarea element to hold the JSON string
+    // const tempTextArea = document.createElement("textarea");
+    // tempTextArea.value = jsonString;
+
+    // Append the textarea to the document body and select its contents
+    // document.body.appendChild(tempTextArea);
+    tempTextArea.select();
+
+    // Execute the copy command
+    document.execCommand("copy");
+
+    // Remove the temporary textarea
+    // document.body.removeChild(tempTextArea);
+
+    // Optionally, provide visual feedback that the copy operation was successful
+    copyButton.innerText = "Copied!";
+    // setTimeout(() => {
+    //   copyButton.innerText = "Copy";
+    // }, 1000);
+  });
+
+  // Add the copy button to the document
+  jsonDisplay.appendChild(copyButton);
 }
 
 function colorChange(e) {
@@ -87,5 +143,14 @@ function colorChange(e) {
   } else {
     console.log(thisDiv.style.backgroundColor + "backToNormal");
     thisDiv.style.backgroundColor = "rgb(255, 255, 255)";
+  }
+}
+document.getElementById("getText").addEventListener("click", getText);
+let num = 0;
+function getText() {
+  console.log("here");
+  if (num == 0) {
+    num++;
+    updateJsonDisplay();
   }
 }
