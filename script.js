@@ -1,6 +1,9 @@
 document.getElementById("generate").addEventListener("click", generateGrid);
 // const colorPicker = document.getElementById("colorPicker");
 
+let defaultRGB = "rgb(66, 0, 66)";
+let defaultHEX = "#420042";
+
 function generateGrid() {
   const numberInput = document.getElementById("number").value;
   let colorPicker = document.getElementById("colorPicker");
@@ -42,17 +45,21 @@ function generateGrid() {
   console.log("lower: " + lowerDimension);
 
   for (let i = 0; i < cells_per_row; i++) {
+    const breakLine = document.createElement("div");
+    breakLine.classList.add("newLine");
+    gridContainer.appendChild(breakLine);
     for (let j = 0; j < cells_per_row; j++) {
       const cell = document.createElement("div");
       cell.classList.add("cell");
       cell.id = i * cells_per_row + j;
       cell.style.width = `${lowerDimension}px`;
       cell.style.height = `${lowerDimension}px`;
-      cell.style.backgroundColor = "rgb(255, 255, 255)";
+      cell.style.backgroundColor = defaultRGB;
       cell.addEventListener("click", (e) => colorChange(e));
-      gridContainer.appendChild(cell);
+      breakLine.appendChild(cell);
     }
-    gridContainer.appendChild(document.createElement("br"));
+    // const breakLine = document.createElement("div");
+    // breakLine.classList.add("newLine");
   }
 
   // function updateJsonDisplay() {
@@ -81,12 +88,26 @@ function updateJsonDisplay() {
 
     // Check if cell has a background color
     if (cellColor) {
-      // If color not in dictionary, initialize list with index, otherwise add index to list
-      json[cellColor] = json[cellColor] ? [...json[cellColor], index] : [index];
+      if (cellColor != "rgb(66, 0, 66)") {
+        // If color not in dictionary, initialize list with index, otherwise add index to list
+        json[cellColor] = json[cellColor]
+          ? [...json[cellColor], index]
+          : [index];
+      }
     }
   });
   // Convert JSON object to string with pretty formatting
-  const jsonString = JSON.stringify(json, null, 2);
+  // const jsonString = JSON.stringify(json, null, 2);
+  const jsonString = JSON.stringify(
+    json,
+    (key, value) => {
+      if (Array.isArray(value)) {
+        return "[" + value.join(", ") + "]"; // Join array values with a comma and space
+      }
+      return value; // Return other types of values unchanged
+    },
+    2
+  );
 
   console.log(jsonString);
   // Update jsonDisplay element with the string representation of the JSON
@@ -97,44 +118,63 @@ function updateJsonDisplay() {
   const copyButton = document.getElementById("getText");
   copyButton.innerText = "Copy";
 
-  const tempTextArea = document.createElement("textarea");
-  tempTextArea.value = jsonString;
-  document.getElementById("jsonDisplay").appendChild(tempTextArea);
+  if (!document.getElementById("textArea")) {
+    //First time
+    const tempTextArea = document.createElement("textarea");
+    tempTextArea.setAttribute("id", "textArea");
+    tempTextArea.value = jsonString;
+    document.getElementById("jsonDisplay").appendChild(tempTextArea);
+  } else {
+    const tempTextArea = document.getElementById("textArea");
+    tempTextArea.value = jsonString;
+  }
+  // tempTextArea.value = jsonString;
+  // document.getElementById("jsonDisplay").appendChild(tempTextArea);
 
   // Add click event listener to copy button
-  copyButton.addEventListener("click", () => {
-    // Create a temporary textarea element to hold the JSON string
-    // const tempTextArea = document.createElement("textarea");
-    // tempTextArea.value = jsonString;
+  // Create a temporary textarea element to hold the JSON string
+  // const tempTextArea = document.createElement("textarea");
+  // tempTextArea.value = jsonString;
 
-    // Append the textarea to the document body and select its contents
-    // document.body.appendChild(tempTextArea);
-    tempTextArea.select();
+  // Append the textarea to the document body and select its contents
+  // document.body.appendChild(tempTextArea);
+  // tempTextArea.select();
 
-    // Execute the copy command
-    document.execCommand("copy");
+  // Execute the copy command
+  // document.execCommand("Copy");
 
-    // Remove the temporary textarea
-    // document.body.removeChild(tempTextArea);
+  // Remove the temporary textarea
+  // document.body.removeChild(tempTextArea);
 
-    // Optionally, provide visual feedback that the copy operation was successful
-    copyButton.innerText = "Copied!";
-    // setTimeout(() => {
-    //   copyButton.innerText = "Copy";
-    // }, 1000);
-  });
+  // Optionally, provide visual feedback that the copy operation was successful
+  // setTimeout(() => {
+  //   copyButton.innerText = "Copy";
+  // }, 1000);
 
   // Add the copy button to the document
-  jsonDisplay.appendChild(copyButton);
+  // jsonDisplay.appendChild(copyButton);
 }
+// const copyButton = document.getElementById("getText");
+
+// copyButton.addEventListener("click", () => {
+//   navigator.clipboard
+//     .writeText(tempTextArea.value)
+//     .then(() => {
+//       console.log("Text copied to clipboard");
+//       copyButton.innerText = "Copied!";
+//     })
+//     .catch((error) => {
+//       console.error("Error in copying text: ", error);
+//     });
+// });
 
 function colorChange(e) {
   thisDiv = e.target.id;
   console.log(thisDiv);
   thisDiv = document.getElementById(thisDiv);
   if (
-    thisDiv.style.backgroundColor == "#FFFFFF" ||
-    thisDiv.style.backgroundColor == "rgb(255, 255, 255)"
+    thisDiv.style.backgroundColor == defaultHEX ||
+    thisDiv.style.backgroundColor == defaultRGB
   ) {
     console.log(thisDiv.style.backgroundColor + "change");
     thisDiv.style.backgroundColor =
@@ -142,15 +182,19 @@ function colorChange(e) {
     //   document.getElementById("colorPicker").color;
   } else {
     console.log(thisDiv.style.backgroundColor + "backToNormal");
-    thisDiv.style.backgroundColor = "rgb(255, 255, 255)";
+    thisDiv.style.backgroundColor = defaultRGB;
+  }
+  const copyButton = document.getElementById("getText");
+  if (copyButton.innerText == "Copy" || copyButton.innerText == "Copied!") {
+    copyButton.innerText = "Update";
   }
 }
 document.getElementById("getText").addEventListener("click", getText);
 let num = 0;
 function getText() {
-  console.log("here");
-  if (num == 0) {
-    num++;
-    updateJsonDisplay();
-  }
+  // console.log("here");
+  // if (num == 0) {
+  //   num++;
+  updateJsonDisplay();
+  // }
 }

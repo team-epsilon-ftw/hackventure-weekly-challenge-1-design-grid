@@ -9,6 +9,7 @@ html {
 .container {
   text-align: center;
   margin-top: 50px;
+  padding-bottom: 2rem;
 }
 #jsonDisplay {
   display: flex;
@@ -18,19 +19,29 @@ html {
 }
 #gridContainer {
   margin-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 #getText {
   margin: 1rem 0;
 }
 textarea {
   width: 50vw;
-  height: 50vw;
+  min-height: 10vw;
   overflow: auto;
+}
+.newLine {
+  margin: 0 0; /* Adjust the margin as needed */
+  padding: 0 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .cell {
   display: inline-block;
-  border: 1px solid black;
-  background-color: #ffffff;
+  border: 1px solid #2b012b;
+  background-color: #420042;
   margin: 0;
   outline: 0;
   vertical-align: top; /* Add this line */
