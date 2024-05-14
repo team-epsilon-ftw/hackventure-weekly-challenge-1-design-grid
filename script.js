@@ -1,7 +1,7 @@
 document.getElementById("generate").addEventListener("click", generateGrid);
 let lock = 0;
-let defaultRGB = "rgb(66, 0, 66)";
-let defaultHEX = "#420042";
+let defaultRGB = hexToRGB("#2c012c");
+let defaultHEX = "#2c012c";
 
 function generateGrid() {
   const numberInput = document.getElementById("number").value;
@@ -18,7 +18,7 @@ function generateGrid() {
     alert("Please enter a valid square number.");
     return;
   }
-  console.log(color);
+  // console.log(color);
   const cells_per_row = Math.sqrt(numberInput);
   const cellSize = 100 / cells_per_row;
 
@@ -27,7 +27,7 @@ function generateGrid() {
 
   const rect = gridContainer.getBoundingClientRect();
   const distanceFromTop = rect.top;
-  console.log("distance from top" + distanceFromTop);
+  // console.log("distance from top" + distanceFromTop);
   let lowerDimension;
   if (screenWidth < screenHeight) {
     lowerDimension = (screenWidth - distanceFromTop) / cells_per_row;
@@ -35,12 +35,10 @@ function generateGrid() {
     lowerDimension = "height";
     lowerDimension = (screenHeight - 3 * distanceFromTop) / cells_per_row;
   }
-
-  console.log(
-    "screenHight: " + screenHeight + " - screenWidth: " + screenWidth
-  );
-  console.log("lower: " + lowerDimension);
-
+  // console.log(
+  //   "screenHight: " + screenHeight + " - screenWidth: " + screenWidth
+  // );
+  // console.log("lower: " + lowerDimension);
   for (let i = 0; i < cells_per_row; i++) {
     const breakLine = document.createElement("div");
     breakLine.classList.add("newLine");
@@ -59,18 +57,20 @@ function generateGrid() {
 }
 function colorChange(e) {
   thisDiv = e.target.id;
-  console.log(thisDiv);
+  // console.log(thisDiv);
   thisDiv = document.getElementById(thisDiv);
-  if (
-    thisDiv.style.backgroundColor == defaultHEX ||
-    thisDiv.style.backgroundColor == defaultRGB
-  ) {
-    console.log(thisDiv.style.backgroundColor + "change");
-    thisDiv.style.backgroundColor =
-      document.getElementById("colorPicker").value;
-  } else {
-    console.log(thisDiv.style.backgroundColor + "backToNormal");
+  let newColor = document.getElementById("colorPicker").value;
+
+  if (newColor[0] == "#") {
+    newColor = hexToRGB(newColor);
+  }
+  // console.log(newColor);
+  if (thisDiv.style.backgroundColor == newColor) {
+    // console.log(thisDiv.style.backgroundColor + "change");
     thisDiv.style.backgroundColor = defaultRGB;
+  } else {
+    // console.log(thisDiv.style.backgroundColor + "backToNormal");
+    thisDiv.style.backgroundColor = newColor;
   }
   const copyButton = document.getElementById("getText");
   if (copyButton.innerText == "Copy" || copyButton.innerText == "Copied") {
@@ -146,6 +146,14 @@ copyButton.addEventListener("click", () => {
       });
 });
 
-// function getText() {
-//   updateJsonDisplay();
-// }
+function hexToRGB(hex) {
+  // Remove the '#' symbol if present
+  hex = hex.replace("#", "");
+
+  // Convert the hex value to decimal
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+
+  return `rgb(${r}, ${g}, ${b})`;
+}
