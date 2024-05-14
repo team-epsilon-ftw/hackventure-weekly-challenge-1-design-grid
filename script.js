@@ -97,7 +97,7 @@ function updateJsonDisplay() {
 
     // Check if cell has a background color
     if (cellColor) {
-      if (cellColor != "rgb(66, 0, 66)") {
+      if (cellColor != defaultRGB) {
         // If color not in dictionary, initialize list with index, otherwise add index to list
         json[cellColor] = json[cellColor]
           ? [...json[cellColor], index]
