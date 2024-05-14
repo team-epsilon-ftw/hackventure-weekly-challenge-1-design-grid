@@ -14,12 +14,12 @@ function generateGrid() {
   gridContainer.innerHTML = "";
   jsonDisplay.innerText = "";
 
-  if (!Number.isInteger(Math.sqrt(numberInput))) {
+  if (!Number.isInteger(parseInt(numberInput))) {
     alert("Please enter a valid square number.");
     return;
   }
   // console.log(color);
-  const cells_per_row = Math.sqrt(numberInput);
+  const cells_per_row = parseInt(numberInput);
   const cellSize = 100 / cells_per_row;
 
   const screenWidth = window.screen.width;
