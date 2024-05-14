@@ -116,10 +116,10 @@ function updateJsonDisplay() {
   // Create a button to copy the JSON string to clipboard
   // const copyButton = document.createElement("button");
   const copyButton = document.getElementById("getText");
-  copyButton.innerText = "Copy";
 
   if (!document.getElementById("textArea")) {
     //First time
+    copyButton.innerText = "Copy";
     const tempTextArea = document.createElement("textarea");
     tempTextArea.setAttribute("id", "textArea");
     tempTextArea.value = jsonString;
@@ -154,19 +154,20 @@ function updateJsonDisplay() {
   // Add the copy button to the document
   // jsonDisplay.appendChild(copyButton);
 }
-// const copyButton = document.getElementById("getText");
+const copyButton = document.getElementById("getText");
 
-// copyButton.addEventListener("click", () => {
-//   navigator.clipboard
-//     .writeText(tempTextArea.value)
-//     .then(() => {
-//       console.log("Text copied to clipboard");
-//       copyButton.innerText = "Copied!";
-//     })
-//     .catch((error) => {
-//       console.error("Error in copying text: ", error);
-//     });
-// });
+copyButton.addEventListener("click", () => {
+  if (document.getElementById("textArea"))
+    navigator.clipboard
+      .writeText(document.getElementById("textArea").value)
+      .then(() => {
+        console.log("Text copied to clipboard");
+        copyButton.innerText = "Copied!";
+      })
+      .catch((error) => {
+        console.error("Error in copying text: ", error);
+      });
+});
 
 function colorChange(e) {
   thisDiv = e.target.id;
