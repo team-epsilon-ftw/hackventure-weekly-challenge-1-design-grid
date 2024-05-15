@@ -29,3 +29,5 @@ https://hackventures-grid-collage.netlify.app/
 7. Copy the generated JSON object containing cell indices and colors for further use.
 8. Who can apply your filters and create collages using [this notebook](https://github.com/Savith-02/jupyter-make-collage), created also as a part of the challange.
 
+## Acknowledgments
+Special thanks to Taem Epsilon team mates who supported me in project excution. Also, the design was by @pasandi. A work of art if i say so myself. 🥳
