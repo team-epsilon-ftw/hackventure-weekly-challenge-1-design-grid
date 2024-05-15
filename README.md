@@ -20,7 +20,7 @@ https://hackventures-grid-collage.netlify.app/
 
 ## Usage
 
-1. Visit the [filter Designer](https://hackventures-grid-collage.netlify.app/) website.
+1. Visit the [Filter Designer](https://hackventures-grid-collage.netlify.app/) website.
 2. Specify the size of the grid (number of cells per row).
 3. Use the color picker tool to select a color.
 4. Click on individual cells to change their color.
