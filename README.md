@@ -2,10 +2,14 @@
 
 Filter Designer is a web application developed as a part of the HackVenture 1.0 challenge organized by UoK. It allows users to design filters by creating custom patterns using a grid of cells. This tool was developed by Team Epsilon.
 
-## deployed at:
+## Deployed at:
 ```
 https://hackventures-grid-collage.netlify.app/
 ```
+
+## Example Usage
+<img src="design.jpg" width="50%" alt="design image">
+
 ## Features
 
 - **Grid Layout**: Users can specify the size of the grid, which determines the number of cells displayed in a single row.
