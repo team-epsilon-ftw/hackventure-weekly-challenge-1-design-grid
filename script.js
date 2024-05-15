@@ -1,7 +1,7 @@
 document.getElementById("generate").addEventListener("click", generateGrid);
 let lock = 0;
-let defaultRGB = hexToRGB("#2c012c");
-let defaultHEX = "#2c012c";
+let defaultRGB = hexToRGB("#000000");
+let defaultHEX = "#000000";
 
 function generateGrid() {
   const numberInput = document.getElementById("number").value;
