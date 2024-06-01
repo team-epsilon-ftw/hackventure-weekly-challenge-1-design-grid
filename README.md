@@ -27,7 +27,7 @@ https://hackventures-grid-collage.netlify.app/
 5. Design your filter by coloring cells accordingly.
 6. Once satisfied, click the "Generate Output" button.
 7. Copy the generated JSON object containing cell indices and colors for further use.
-8. Who can apply your filters and create collages using [this notebook](https://github.com/Savith-02/jupyter-make-collage), created also as a part of the challange.
+8. Who can apply your filters and create collages using [this notebook](https://github.com/team-epsilon-ftw/hackventure-weekly-challenge-1-make-grid), created also as a part of the challange.
 
 ## Acknowledgments
 The design is by @pasandi. A work of art if i say so myself. 🥳
